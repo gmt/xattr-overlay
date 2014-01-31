@@ -57,7 +57,6 @@ DEPEND="${python_dep}
 # For whirlpool hash, require python[ssl] or python-mhash (bug #425046).
 # For compgen, require bash[readline] (bug #445576).
 RDEPEND="${python_dep}
-	sys-apps/xattr-install
 	!build? ( >=sys-apps/sed-4.0.5
 		|| ( >=app-shells/bash-4.2_p37[readline] ( <app-shells/bash-4.2_p37 >=app-shells/bash-3.2_p17 ) )
 		>=app-admin/eselect-1.2
@@ -68,10 +67,14 @@ RDEPEND="${python_dep}
 	elibc_uclibc? ( >=sys-apps/sandbox-2.2 )
 	>=app-misc/pax-utils-0.1.17
 	selinux? ( || ( >=sys-libs/libselinux-2.0.94[python] <sys-libs/libselinux-2.0.94 ) )
-	xattr? ( kernel_linux? (
-		$(for python_impl in python{2_6,2_7,3_2} pypy2_0; do
-			echo "python_targets_${python_impl}? ( dev-python/pyxattr[python_targets_${python_impl}] )"
-		done) ) )
+	xattr? ( 
+		sys-apps/xattr-install
+		kernel_linux? (
+			$(for python_impl in python{2_6,2_7,3_2} pypy2_0; do
+				echo "python_targets_${python_impl}? ( dev-python/pyxattr[python_targets_${python_impl}] )"
+			done)
+		)
+	)
 	!<app-shells/bash-3.2_p17
 	!<app-admin/logrotate-3.8.0"
 PDEPEND="
@@ -394,9 +397,11 @@ pkg_preinst() {
 	# elog dir must exist to avoid logrotate error for bug #415911.
 	# This code runs in preinst in order to bypass the mapping of
 	# portage:portage to root:root which happens after src_install.
+	set -x
 	keepdir /var/log/portage/elog
 	# This is allowed to fail if the user/group are invalid for prefix users.
 	if chown portage:portage "${ED}"var/log/portage{,/elog} 2>/dev/null ; then
 		chmod g+s,ug+rwx "${ED}"var/log/portage{,/elog}
 	fi
+	set +x
 }
