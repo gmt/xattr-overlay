@@ -10,7 +10,7 @@ PYTHON_COMPAT=(
 )
 inherit git-2 eutils multilib
 
-DESCRIPTION="Portage is the package management and distribution system for Gentoo"
+DESCRIPTION="Portage is the package management and distribution system for Gentoo (experimental xattr binary wrapper version)"
 HOMEPAGE="http://www.gentoo.org/proj/en/portage/index.xml"
 LICENSE="GPL-2"
 KEYWORDS=""
@@ -57,6 +57,7 @@ DEPEND="${python_dep}
 # For whirlpool hash, require python[ssl] or python-mhash (bug #425046).
 # For compgen, require bash[readline] (bug #445576).
 RDEPEND="${python_dep}
+	sys-apps/xattr-install
 	!build? ( >=sys-apps/sed-4.0.5
 		|| ( >=app-shells/bash-4.2_p37[readline] ( <app-shells/bash-4.2_p37 >=app-shells/bash-3.2_p17 ) )
 		>=app-admin/eselect-1.2
@@ -92,8 +93,7 @@ prefix_src_archives() {
 	done
 }
 
-EGIT_REPO_URI="git://git.overlays.gentoo.org/proj/portage.git
-	https://github.com/gentoo/portage.git"
+EGIT_REPO_URI="https://github.com/gmt/portage.git"
 S="${WORKDIR}"/${PN}
 
 compatible_python_is_selected() {

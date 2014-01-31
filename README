@@ -6,7 +6,7 @@ Note that you must have both dev-vcs/git and app-portage/layman installed on
 your system for this to work.
 
 Getting the experimental xattr-enabled portage installed requires keywording
-sys-apps/portage-9999.  Emerge it (make sure you got the one from this repo
+sys-apps/portage-9999-r1.  Emerge it (make sure you got the one from this repo
 and not some other) and you're done.  Prefix portage is not supported by this
 overlay -- you must be on a "non-alt" gentoo.
 
