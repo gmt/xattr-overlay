@@ -17,3 +17,7 @@ S="${WORKDIR}/${PN}"
 
 DEPEND="app-arch/xz-utils"
 RDEPEND="sys-apps/coreutils"
+
+src_configure() {
+	econf --docdir="${EPREFIX}"/usr/share/doc/${P}
+}
