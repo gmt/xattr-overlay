@@ -1,0 +1,21 @@
+To add this overlay to a Gentoo system, run the following command:
+
+layman -o https://raw.github.com/gmt/xattr-overlay/master/overlay.xml -f -a xattr
+
+Note that you must have both dev-vcs/git and app-portage/layman installed on
+your system for this to work.
+
+Getting the experimental xattr-enabled portage installed requires keywording
+sys-apps/portage-9999.  Emerge it (make sure you got the one from this repo
+and not some other) and you're done.  Prefix portage is not supported by this
+overlay -- you must be on a "non-alt" gentoo.
+
+If you're looking for a high-quality test-ebuild, give =dev-libs/mathjax-2.2
+a shot, it's just incredible.
+
+Please note that I didn't write the wrapper.  I just threw together
+some scaffolding to test it out (plus, I happened to be emerge -e
+@world-ing at the moment the C source was announced and was pretty sick
+of waiting... :)
+
+-gmt
