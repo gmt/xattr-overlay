@@ -220,7 +220,7 @@ src_prepare() {
 	local _version=$(cd "${S}/.git" && git describe --tags | sed -e 's|-\([0-9]\+\)-.\+$|_p\1|')
 	_version=${_version:1}
 	einfo "Setting portage.VERSION to ${_version} ..."
-	sed -e "s/^VERSION=.*/VERSION='${_version}'/" -i pym/portage/__init__.py || \
+	sed -e "s/^VERSION =.*/VERSION = '${_version}'/" -i pym/portage/__init__.py || \
 		die "Failed to patch portage.VERSION"
 	sed -e "1s/VERSION/${_version}/" -i doc/fragment/version || \
 		die "Failed to patch VERSION in doc/fragment/version"
